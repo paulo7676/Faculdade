@@ -1,6 +1,6 @@
 defmodule Main do
 
-  def metros2centímetros(m) do
+  def metros2centímetros(m) when is_number(m) do
     m * 100
   end
 

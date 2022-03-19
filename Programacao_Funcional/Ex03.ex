@@ -1,6 +1,6 @@
 defmodule Main do
 
-  def c2k(c) do
+  def c2k(c) when is_number(c)  do
     c + 273.15
   end
 

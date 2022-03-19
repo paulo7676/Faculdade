@@ -1,6 +1,6 @@
 defmodule Main do
 
-  def k2f(k) do
+  def k2f(k) when is_number(k) do
 
     (k - 273.15) * 9/5 + 32
 

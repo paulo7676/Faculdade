@@ -1,6 +1,6 @@
 defmodule Main do
 
-  def cubo(x) do
+  def cubo(x) when is_number(x) do
 
     x**3
 
