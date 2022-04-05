@@ -1,11 +1,11 @@
-defmodule Exemple.MixProject do
+defmodule Carpeado.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :exemple,
+      app: :carpeado,
       version: "0.1.0",
-      elixir: "~> 1.13",
+      elixir: "~> 1.9",
       start_permanent: Mix.env() == :prod,
       deps: deps()
     ]
@@ -14,14 +14,15 @@ defmodule Exemple.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      extra_applications: [:logger]
+      extra_applications: [:logger],
+      mod: {Carpeado.Application, []}
     ]
   end
 
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      #{:nostrum, "~> 0.5.1"} #biblioteca para conectar com o discord
+      {:nostrum, "~> 0.5.1 "}
       # {:dep_from_hexpm, "~> 0.3.0"},
       # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}
     ]

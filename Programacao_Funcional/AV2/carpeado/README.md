@@ -1,21 +1,21 @@
-# Exemple
+# Carpeado
 
 **TODO: Add description**
 
 ## Installation
 
 If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `exemple` to your list of dependencies in `mix.exs`:
+by adding `carpeado` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
   [
-    {:exemple, "~> 0.1.0"}
+    {:carpeado, "~> 0.1.0"}
   ]
 end
 ```
 
 Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
 and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/exemple>.
+be found at [https://hexdocs.pm/carpeado](https://hexdocs.pm/carpeado).
 

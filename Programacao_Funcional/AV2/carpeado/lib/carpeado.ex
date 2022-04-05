@@ -1,6 +1,6 @@
-defmodule Exemple do
+defmodule Carpeado do
   @moduledoc """
-  Documentation for `Exemple`.
+  Documentation for Carpeado.
   """
 
   @doc """
@@ -8,12 +8,10 @@ defmodule Exemple do
 
   ## Examples
 
-      iex> Exemple.hello()
+      iex> Carpeado.hello()
       :world
 
   """
-
-  #Todo codigo fonte do arquivo
   def hello do
     :world
   end
