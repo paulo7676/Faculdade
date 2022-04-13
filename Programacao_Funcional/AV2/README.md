@@ -1,4 +1,4 @@
-# Bot [Little Basket]
+# Little Basket
 
 Bot multifunções do discord utilizando a linguagem elixir para a disciplina de programação funcional, ele possui as seguintes funções por meio de diferentes APIs:
 - 1 selecionar o sumario de um livro
@@ -17,3 +17,5 @@ Bot multifunções do discord utilizando a linguagem elixir para a disciplina de
 - 13 Informações de um show (muitos comandos semelhates para fazer as mesmas coisas)
 - 14 Perfil do Linkedin?
 - 
+
+Para maiores problemas ou ideias a api https://proxycrawl.com/ sempre é util para fazer crwaling de dados
