@@ -13,8 +13,8 @@ defmodule Carpeado.Consumer do
   def handle_event({:MESSAGE_CREATE, msg, _ws_state}) do
     cond do
       String.starts_with?(msg.content, "a") -> teste(msg)
-      String.starts_with?(msg.content, "b") -> dog_Facts(msg)
-      String.starts_with?(msg.content, "c") -> dog_pics(msg)
+      String.starts_with?(msg.content, "!dog_facts") -> dog_Facts(msg)
+      String.starts_with?(msg.content, "!dog_pics") -> dog_pics(msg)
       String.starts_with?(msg.content, "!wiki ") -> wiki(msg)
       true -> :ignore
     end
@@ -23,21 +23,26 @@ defmodule Carpeado.Consumer do
   def wiki(msg) do
     aux = String.split(msg.content, " ",parts: 2)
 
-    wiki_s = Enum.fetch!(aux,1)
-    wiki_s = String.replace(wiki_s," ","_")
-
+    wikis = Enum.fetch!(aux,1)
+    wiki_s = String.replace(wikis," ","_")
     resp = HTTPoison.get!("https://pt.wikipedia.org/api/rest_v1/page/summary/#{wiki_s}?redirect=true")
-    {:ok, map} = Poison.decode(resp.body)
 
-    informacao = map["extract"]
-    imagem = map["thumbnail"]["source"]
-    Api.create_message(msg.channel_id, imagem)
-    Api.create_message(msg.channel_id, informacao)
+
+    case resp.status_code do
+      200 ->
+        {:ok, map} = Poison.decode(resp.body, keys: :atoms)
+        informacao = map["extract"]
+        imagem = map["thumbnail"]["source"]
+        Api.create_message(msg.channel_id, imagem)
+        Api.create_message(msg.channel_id, informacao)
+      404 ->
+        Api.create_message(msg.channel_id, "Nao Conseguimos encontrar informações sobre #{wikis} tente novamente")
+    end
   end
 
   def dog_Facts(msg) do
     resp = HTTPoison.get!("https://dog-facts-api.herokuapp.com/api/v1/resources/dogs/all")
-    {:ok, map} = Poison.decode(resp.body)
+    {:ok, map} = Poison.decode(resp.body, keys: :atoms)
     length_list = length(map)
 
     Api.create_message(msg.channel_id, Enum.at(map,
@@ -46,7 +51,7 @@ defmodule Carpeado.Consumer do
 
   def dog_pics(msg) do
     resp = HTTPoison.get!("https://random.dog/woof.json")
-    {:ok, map} = Poison.decode(resp.body)
+    {:ok, map} = Poison.decode(resp.body, keys: :atoms)
     imagem = map["url"]
     Api.create_message(msg.channel_id, imagem)
   end
