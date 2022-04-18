@@ -1,6 +1,12 @@
 # Little Basket
 
+Criado por: Paulo Henrique Ribeiro Costa
+
 Bot multifunções do discord utilizando a linguagem elixir para a disciplina de programação funcional, ele possui as seguintes funções por meio de diferentes APIs:
+- !dog_facts -> Retorna uma curiosidade sobre cães (em inglês)
+- !dog_pics -> Retorna uma imagem de um cachorro
+- !wiki nome -> Retorna um resumo do que foi procurado junto com a sua imagem
+
 - 1 selecionar o sumario de um livro
 - 2 encontrar o livro na amazon (pode ser um livro ou mais itens)
 - 3 dar play em uma musica
