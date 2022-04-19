@@ -16,6 +16,7 @@ defmodule Carpeado.Consumer do
       String.starts_with?(msg.content, "!dog_facts") -> dog_Facts(msg)
       String.starts_with?(msg.content, "!dog_pics") -> dog_pics(msg)
       String.starts_with?(msg.content, "!wiki ") -> wiki(msg)
+      String.starts_with?(msg.content, "!feriado ") -> feriado(msg)
       true -> :ignore
     end
   end
@@ -45,6 +46,21 @@ defmodule Carpeado.Consumer do
     {:ok, map} = Poison.decode(resp.body, keys: :atoms)
     length_list = length(map)
 
+    Api.create_message(msg.channel_id, Enum.at(map,
+    :rand.uniform(length_list))["fact"])
+  end
+
+  def feriado(msg) do
+    #resp = HTTPoison.get!(
+      #"https://calendarific.com/api/v2/holidays?api_key=9b19fb821d05703828bdf22b96dfd0e678e802e5&country=BR&year=2022")
+    #{:ok, map} = Poison.decode(resp.body, keys: :atoms)
+    #length_list = length(map)
+    #aux = :calendar.local_time()
+
+    #Logica -> temos uma lista com todos os dias possíveis, vamos:
+    # procurar por um mês, se ele existir encontrar o primeiro dia que for maior que o dia atual
+    # se nao tiver/ final do mês só continuar
+    # na vdd por um metodo de subtracao da certo, sempre checamos se o mês e dia atuais são positivos
     Api.create_message(msg.channel_id, Enum.at(map,
     :rand.uniform(length_list))["fact"])
   end

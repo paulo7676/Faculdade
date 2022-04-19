@@ -1,4 +1,4 @@
 import Config
 
 config :nostrum,
-  token: "OTYwNjk4MzgyMDM1MzMzMTQw.YkuOFw.DI14r895C2rafu2UPlTMWEKtFG8"
+  token: "O___TYwNjk4MzgyMDM1MzMzMTQw.YkuOFw.RsMXzo3WFBQaxYqI9Vp_TYlgLuA"
