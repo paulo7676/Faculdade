@@ -3,9 +3,9 @@
 Criado por: Paulo Henrique Ribeiro Costa
 
 Bot multifunções do discord utilizando a linguagem elixir para a disciplina de programação funcional, ele possui as seguintes funções por meio de diferentes APIs:
-- !dog_facts -> Retorna uma curiosidade sobre cães (em inglês)
-- !dog_pics -> Retorna uma imagem de um cachorro
+- !coffee -> Retorna uma imagem de café
 - !wiki nome -> Retorna um resumo do que foi procurado junto com a sua imagem
+- !feriados -> Retorna uma lista dos proximos feriados no ano
 
 - 1 selecionar o sumario de um livro
 - 2 encontrar o livro na amazon (pode ser um livro ou mais itens)
