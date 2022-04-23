@@ -8,17 +8,19 @@ defmodule Carpeado.Consumer do
     Consumer.start_link(__MODULE__)
   end
 
-
-
   def handle_event({:MESSAGE_CREATE, msg, _ws_state}) do
     cond do
-      String.starts_with?(msg.content, "a") -> teste(msg)
-      String.starts_with?(msg.content, "!dog_facts") -> dog_Facts(msg)
-      String.starts_with?(msg.content, "!dog_pics") -> dog_pics(msg)
+      String.starts_with?(msg.content, "!coffe") -> coffee(msg)
       String.starts_with?(msg.content, "!wiki ") -> wiki(msg)
-      String.starts_with?(msg.content, "!feriado ") -> feriado(msg)
+      String.starts_with?(msg.content, "!feriados") -> feriados(msg)
       true -> :ignore
     end
+  end
+
+  def coffee(msg) do
+    resp = HTTPoison.get!("https://coffee.alexflipnote.dev/random.json")
+    {:ok, map} = Poison.decode(resp.body)
+    Api.create_message(msg.channel_id, map["file"])
   end
 
   def wiki(msg) do
@@ -31,7 +33,7 @@ defmodule Carpeado.Consumer do
 
     case resp.status_code do
       200 ->
-        {:ok, map} = Poison.decode(resp.body, keys: :atoms)
+        {:ok, map} = Poison.decode(resp.body)
         informacao = map["extract"]
         imagem = map["thumbnail"]["source"]
         Api.create_message(msg.channel_id, imagem)
@@ -41,35 +43,24 @@ defmodule Carpeado.Consumer do
     end
   end
 
-  def dog_Facts(msg) do
-    resp = HTTPoison.get!("https://dog-facts-api.herokuapp.com/api/v1/resources/dogs/all")
+  def feriados(msg) do
+    comando = msg.content
+    aux = :calendar.local_time()
+    dia = elem(elem(aux, 0),2)
+    mes = elem(elem(aux, 0),1)
+    ano = elem(elem(aux, 0),0)
+
+    resp = HTTPoison.get!(
+      "https://calendarific.com/api/v2/holidays?api_key=9b19fb821d05703828bdf22b96dfd0e678e802e5&country=BR&year=#{ano}")
     {:ok, map} = Poison.decode(resp.body, keys: :atoms)
-    length_list = length(map)
 
-    Api.create_message(msg.channel_id, Enum.at(map,
-    :rand.uniform(length_list))["fact"])
-  end
-
-  def feriado(msg) do
-    #resp = HTTPoison.get!(
-      #"https://calendarific.com/api/v2/holidays?api_key=9b19fb821d05703828bdf22b96dfd0e678e802e5&country=BR&year=2022")
-    #{:ok, map} = Poison.decode(resp.body, keys: :atoms)
-    #length_list = length(map)
-    #aux = :calendar.local_time()
-
-    #Logica -> temos uma lista com todos os dias possíveis, vamos:
-    # procurar por um mês, se ele existir encontrar o primeiro dia que for maior que o dia atual
-    # se nao tiver/ final do mês só continuar
-    # na vdd por um metodo de subtracao da certo, sempre checamos se o mês e dia atuais são positivos
-    Api.create_message(msg.channel_id, Enum.at(map,
-    :rand.uniform(length_list))["fact"])
-  end
-
-  def dog_pics(msg) do
-    resp = HTTPoison.get!("https://random.dog/woof.json")
-    {:ok, map} = Poison.decode(resp.body, keys: :atoms)
-    imagem = map["url"]
-    Api.create_message(msg.channel_id, imagem)
+    Api.create_message(msg.channel_id, "Em #{ano} ainda temos feriados nos dias:")
+    for n <- map.response.holidays do
+      if n.date.datetime.month - mes > 0 && n.date.datetime.day - dia > 0 do
+        proximo_feriado = "#{n.date.datetime.day}/#{n.date.datetime.month}/#{ano}"
+        Api.create_message(msg.channel_id, proximo_feriado)
+      end
+    end
   end
 
   def teste(msg) do
@@ -78,7 +69,6 @@ defmodule Carpeado.Consumer do
     a = map["results"]
     Api.create_message(msg.channel_id, Enum.at(map["results"],0)["url"])
   end
-
 
   def handle_event(_event) do
     :noop
