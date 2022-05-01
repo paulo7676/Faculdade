@@ -1,6 +1,6 @@
 # Carpeado
 
-Desenvolvido por Paulo Henrique Ribeiro Costa
+## **Desenvolvido por Paulo Henrique Ribeiro Costa**
 
 Chatbot para o discord utilizando a linguagem Elixir desenvolvido na disciplina de Programação Funcional. Ele possui 10 comandos distintos que utilizam diferentes Rest APIs, tratando as possiveis entradas de dados, realizando as funcionalidades esperadas quando a entrada é correta e, retornando mensagens de erro quando contrario.
 
