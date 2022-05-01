@@ -1,6 +1,12 @@
 defmodule Carpeado.Consumer do
   #consumidor de eventos do discord
+<<<<<<< HEAD
   #iex -S mix
+=======
+  #mix run --no halt
+
+
+>>>>>>> 765bc743c87b873138ddbe1f250f3ae8e0f03fa6
   use Nostrum.Consumer
   alias Nostrum.Api
 
