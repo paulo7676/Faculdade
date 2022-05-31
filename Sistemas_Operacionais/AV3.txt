@@ -1,0 +1,37 @@
+#Gerenciamento de memoria
+
+Gerenciamento de memoria vai ver quais processos vao ocupar os espaços de endereçamento
+
+Segmentação e Paginação:
+
+Segmentação (menos usada): sequencia de endereços de memoria que armazenam endereços semelhantes:
+-segmentos de dados
+-segmentos de codigo
+-segmentos de pilha
+
++você substitui segmentos de memoria (digital para fisica/principal)
+    x ocupa 3 segmentos e y ocupa 4, em uma memoria principal de 6 segmentos, x iria primeiro
+    e depois y, so que para y ir por completo x perderia espaço/segmentos
+
+-paginacao (mais usada): as paginas são dividades em tamanho FIXO, e podem ser divididas ao ir para a memoria principal
+
++problematização:
+
+-soma de processos estrapola a quantidade de memoria principal
+-fragmentaçao de memoria (sobra espaço na memoria fisica)
+-protecao
+
+Para solucionar esses problemas utilizamos a memória virtual:
+    trocamos o processo de endereço fisico compartilhado para um espaço de endereçamento digital individual
+    (MAPEAMENTO) faz essa troca
+
+Pergunta(aula 16 - 28:00) -> se um processador tem 32 bits de endereço ele pode endereçar 2^32 endereços
+
+para acessar 256 m bytes precisamos de quantos bits? 256 * 2^20 bytes ou 2^28 bytes, ou seja preciamos de 28 bits
+
+precisamos de uma função de mapeamento para fazer esse endereçamento 
+
+pagefold (falha de pagina) -> sei la o disco faz algo
+
+
+Processador com 64 bits de endereço -> pode apontar para 2^64 endereços ou 2^64 bytes ou 2^34 x 2^30 (gigabytes 2^34) 
